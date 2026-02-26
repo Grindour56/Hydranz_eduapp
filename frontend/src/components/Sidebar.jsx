@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { isAuthenticated, logoutUser } from '../auth';
+import SystemStatus from './SystemStatus';
 
 export default function Sidebar() {
   const location = useLocation();
@@ -17,8 +18,13 @@ export default function Sidebar() {
     navItems.push({ to: '/login', label: 'Login', icon: '🔐' });
   }
 
+  // simple demo state for system status
+  const [statusMsg] = useState('Online');
+  const [bandwidth] = useState(0);
+
   return (
     <aside className="sidebar">
+      <SystemStatus statusMessage={statusMsg} bandwidthSaved={bandwidth} />
       <div className="sidebar-header">
         <h1 className="sidebar-brand">Hydranz</h1>
         <p className="sidebar-tagline">Learn Smart</p>
