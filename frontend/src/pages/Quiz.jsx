@@ -23,10 +23,8 @@ export default function Quiz() {
     const timeTaken = (Date.now() - startTime) / 1000;
     const isCorrect = selected === question.answer;
 
-<<<<<<< Updated upstream
     // store attempt locally (privacy)
     addAttempt(appState.selectedTopic, isCorrect ? 1 : 0, timeTaken);
-=======
     // store attempt in global state
     addAttempt("math", isCorrect ? 1 : 0, timeTaken);
 
@@ -54,7 +52,6 @@ export default function Quiz() {
       console.log("Backend not ready yet, using mock module.");
       setModuleResult({ title: "Sample Module", content: "Backend not connected yet." });
     }
->>>>>>> Stashed changes
 
     setSelected(null);
     setStartTime(Date.now());
@@ -66,8 +63,7 @@ export default function Quiz() {
     }
 
     // 🔥 QUIZ FINISHED → RUN PIPELINE
-    const moduleId = generateModule(studentState.history);
-    console.log("Generated Module:", moduleId);
+
 
     try {
       const moduleContent = await fetchModule(moduleId);
@@ -92,30 +88,30 @@ export default function Quiz() {
 
   const question = questions[currentQ];
 
-return (
-  <div className="app-container">
-    <div className="quiz-card">
+  return (
+    <div className="app-container">
+      <div className="quiz-card">
 
-      <h2>{appState.selectedSubject}</h2>
-      <p className="subtitle">{appState.selectedTopic}</p>
-      <h3>Question {currentQ + 1} / {questions.length}</h3>
-      <h3>{question.q}</h3>
+        <h2>{appState.selectedSubject}</h2>
+        <p className="subtitle">{appState.selectedTopic}</p>
+        <h3>Question {currentQ + 1} / {questions.length}</h3>
+        <h3>{question.q}</h3>
 
-      {question.options.map(opt => (
-        <button
-          key={opt}
-          className="option-btn"
-          onClick={() => setSelected(opt)}
-        >
-          {opt}
+        {question.options.map(opt => (
+          <button
+            key={opt}
+            className="option-btn"
+            onClick={() => setSelected(opt)}
+          >
+            {opt}
+          </button>
+        ))}
+
+        <button className="next-btn" onClick={submitAnswer}>
+          {currentQ === questions.length - 1 ? "Finish Quiz" : "Next"}
         </button>
-      ))}
 
-      <button className="next-btn" onClick={submitAnswer}>
-        {currentQ === questions.length - 1 ? "Finish Quiz" : "Next"}
-      </button>
-
+      </div>
     </div>
-  </div>
-);
+  );
 }
