@@ -6,6 +6,8 @@ dist/
 __pycache__/
 *.py[codz]
 *$py.class
+.vite/
+node_modules/
 
 # C extensions
 *.so

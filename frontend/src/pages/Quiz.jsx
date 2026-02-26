@@ -23,8 +23,38 @@ export default function Quiz() {
     const timeTaken = (Date.now() - startTime) / 1000;
     const isCorrect = selected === question.answer;
 
+<<<<<<< Updated upstream
     // store attempt locally (privacy)
     addAttempt(appState.selectedTopic, isCorrect ? 1 : 0, timeTaken);
+=======
+    // store attempt in global state
+    addAttempt("math", isCorrect ? 1 : 0, timeTaken);
+
+    console.log("History:", studentState.history);
+
+    // generate module id using AI pipeline
+    const moduleId = generateModule(studentState.history);
+    const moduleMap = {
+      1: "remedial",
+      2: "intermediate",
+      3: "advanced",
+      4: "practice"
+    };
+
+    const moduleKey = moduleMap[moduleId];
+    console.log("Generated Module ID:", moduleId);
+
+    if (!moduleId) return;
+
+    try {
+      const moduleContent = await fetchModule(moduleKey);
+
+      setModuleResult(moduleContent);
+    } catch (err) {
+      console.log("Backend not ready yet, using mock module.");
+      setModuleResult({ title: "Sample Module", content: "Backend not connected yet." });
+    }
+>>>>>>> Stashed changes
 
     setSelected(null);
     setStartTime(Date.now());

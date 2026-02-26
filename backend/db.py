@@ -10,23 +10,24 @@ def init_db():
     cursor = conn.cursor()
 
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS modules (
-        id TEXT PRIMARY KEY,
-        content TEXT
-    )
+  CREATE TABLE IF NOT EXISTS modules (
+    id TEXT PRIMARY KEY,
+    title TEXT,
+    content TEXT
+)
     """)
 
     default_modules = [
-        ("remedial", "Basic module content"),
-        ("intermediate", "Intermediate module content"),
-        ("advanced", "Advanced module content"),
-        ("practice", "Practice exercises")
-    ]
+    ("remedial", "Basic Concepts", "Basic module content"),
+    ("intermediate", "Intermediate Learning", "Intermediate module content"),
+    ("advanced", "Advanced Mastery", "Advanced module content"),
+    ("practice", "Practice Mode", "Practice exercises")
+]
 
     cursor.executemany(
-        "INSERT OR IGNORE INTO modules VALUES (?, ?)",
-        default_modules
-    )
+    "INSERT OR IGNORE INTO modules VALUES (?, ?, ?)",
+    default_modules
+)
 
     conn.commit()
     conn.close()

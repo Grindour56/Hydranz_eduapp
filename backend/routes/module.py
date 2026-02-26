@@ -10,7 +10,7 @@ def get_module(request: ModuleRequest):
     cursor = conn.cursor()
 
     cursor.execute(
-        "SELECT content FROM modules WHERE id=?",
+        "SELECT title, content FROM modules WHERE id=?",
         (request.module_id,)
     )
 
@@ -18,5 +18,12 @@ def get_module(request: ModuleRequest):
     conn.close()
 
     if row:
-        return {"content": row[0]}
-    return {"content": "Module not found"}
+        return {
+            "title": row[0],
+            "content": row[1]
+        }
+
+    return {
+        "title": "Not Found",
+        "content": "Module not found"
+    }
