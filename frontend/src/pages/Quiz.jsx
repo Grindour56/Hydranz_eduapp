@@ -62,27 +62,30 @@ export default function Quiz() {
 
   const question = questions[currentQ];
 
-  return (
-    <div className="app-container">
-      <div className="quiz-card">
-        <h2>{appState.selectedSubject} → {appState.selectedTopic}</h2>
-        <h3>Question {currentQ + 1} / {questions.length}</h3>
-        <h3>{question.q}</h3>
+return (
+  <div className="app-container">
+    <div className="quiz-card">
 
-        {question.options.map(opt => (
-          <button
-            key={opt}
-            className="option-btn"
-            onClick={() => setSelected(opt)}
-          >
-            {opt}
-          </button>
-        ))}
+      <h2>{appState.selectedSubject}</h2>
+      <p className="subtitle">{appState.selectedTopic}</p>
+      <h3>Question {currentQ + 1} / {questions.length}</h3>
+      <h3>{question.q}</h3>
 
-        <button className="next-btn" onClick={submitAnswer}>
-          {currentQ === questions.length - 1 ? "Finish Quiz" : "Next"}
+      {question.options.map(opt => (
+        <button
+          key={opt}
+          className="option-btn"
+          onClick={() => setSelected(opt)}
+        >
+          {opt}
         </button>
-      </div>
+      ))}
+
+      <button className="next-btn" onClick={submitAnswer}>
+        {currentQ === questions.length - 1 ? "Finish Quiz" : "Next"}
+      </button>
+
     </div>
-  );
+  </div>
+);
 }

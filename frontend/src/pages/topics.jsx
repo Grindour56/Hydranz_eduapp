@@ -4,10 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Topics() {
   const navigate = useNavigate();
-
-  const topics = Object.keys(
-    questionBank[appState.selectedSubject] || {}
-  );
+  const topics = Object.keys(questionBank[appState.selectedSubject] || {});
 
   function selectTopic(topic) {
     appState.selectedTopic = topic;
@@ -17,13 +14,20 @@ export default function Topics() {
   return (
     <div className="app-container">
       <div className="quiz-card">
-        <h2>Select Topic</h2>
+        <h2>{appState.selectedSubject}</h2>
+        <p className="subtitle">Choose a topic</p>
 
-        {topics.map(topic => (
-          <button key={topic} className="option-btn" onClick={() => selectTopic(topic)}>
-            {topic}
-          </button>
-        ))}
+        <div className="grid">
+          {topics.map(topic => (
+            <button
+              key={topic}
+              className="option-btn"
+              onClick={() => selectTopic(topic)}
+            >
+              {topic}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

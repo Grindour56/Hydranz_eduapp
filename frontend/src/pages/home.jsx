@@ -6,8 +6,10 @@ export default function Home() {
   return (
     <div className="app-container">
       <div className="quiz-card">
-        <h1 className="title">Hydranz EduApp</h1>
-        <p>Personalized learning. Zero data tracking.</p>
+        <h1 className="title">Hydranz Edu</h1>
+        <p className="subtitle">
+          Personalized learning. Zero tracking. Built for every student.
+        </p>
 
         <button className="next-btn" onClick={() => navigate("/subjects")}>
           Start Learning

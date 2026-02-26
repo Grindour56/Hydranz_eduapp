@@ -6,8 +6,8 @@ export default function Subjects() {
   const navigate = useNavigate();
   const subjects = Object.keys(questionBank);
 
-  function selectSubject(subject) {
-    appState.selectedSubject = subject;
+  function selectSubject(sub) {
+    appState.selectedSubject = sub;
     navigate("/topics");
   }
 
@@ -15,12 +15,17 @@ export default function Subjects() {
     <div className="app-container">
       <div className="quiz-card">
         <h2>Select Subject</h2>
-
-        {subjects.map(sub => (
-          <button key={sub} className="option-btn" onClick={() => selectSubject(sub)}>
-            {sub}
-          </button>
-        ))}
+        <div className="grid">
+          {subjects.map(sub => (
+            <button
+              key={sub}
+              className="option-btn"
+              onClick={() => selectSubject(sub)}
+            >
+              {sub}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

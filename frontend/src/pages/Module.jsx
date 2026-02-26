@@ -5,18 +5,14 @@ export default function Module() {
   const navigate = useNavigate();
   const module = location.state;
 
-  if (!module) {
-    return <h2>No module data</h2>;
-  }
-
   return (
     <div className="app-container">
       <div className="quiz-card">
-        <h1>{module.title}</h1>
-        <p>{module.content}</p>
+        <h1 className="title">{module?.title}</h1>
+        <p className="subtitle">{module?.content}</p>
 
         <button className="next-btn" onClick={() => navigate("/")}>
-          Back to Home
+          Learn Another Topic
         </button>
       </div>
     </div>
