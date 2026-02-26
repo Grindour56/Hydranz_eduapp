@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import Layout from "../components/Layout";
-import Card from "../components/Card";
-import Button from "../components/Button";
+import GlassCard from "../components/GlassCard";
+import GradientButton from "../components/GradientButton";
 
 export default function Module() {
   const location = useLocation();
@@ -9,15 +8,26 @@ export default function Module() {
   const module = location.state;
 
   return (
-    <Layout>
-      <Card>
-        <h1 className="title">{module?.title || "Module"}</h1>
-        <p className="subtitle">{module?.content || "(no content)"}</p>
+    <div className="module-container">
+      <GlassCard className="module-card">
+        <div className="module-header">
+          <h1>{module?.title || "Module"}</h1>
+          <p className="module-subtitle">Learning Content</p>
+        </div>
 
-        <Button variant="primary" onClick={() => navigate("/") }>
-          Learn Another Topic
-        </Button>
-      </Card>
-    </Layout>
+        <div className="module-content">
+          <p>{module?.content || "(no content available)"}</p>
+        </div>
+
+        <div className="module-actions">
+          <GradientButton variant="primary" onClick={() => navigate("/subjects")}>
+            Learn Another Topic
+          </GradientButton>
+          <GradientButton variant="secondary" onClick={() => navigate("/")}>
+            Go Home
+          </GradientButton>
+        </div>
+      </GlassCard>
+    </div>
   );
 }

@@ -3,10 +3,18 @@ import { questionBank } from "../data/questionBank";
 import { appState, addAttempt, studentState } from "../state";
 import { generateModule } from "../core/pipeline";
 import { fetchModule } from "../api/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
+import GlassCard from "../components/GlassCard";
+import GradientButton from "../components/GradientButton";
+import ProgressBar from "../components/ProgressBar";
 
 export default function Quiz() {
   const navigate = useNavigate();
+
+  // guard: ensure we have subject/topic selected
+  if (!appState.selectedSubject || !appState.selectedTopic) {
+    return <Navigate to="/subjects" replace />;
+  }
 
   const questions =
     questionBank?.[appState.selectedSubject]?.[appState.selectedTopic] || [];
@@ -55,47 +63,67 @@ export default function Quiz() {
   }
 
   if (!questions.length) {
-    return <h2 style={{ padding: 40 }}>No questions available.</h2>;
+    return (
+      <GlassCard>
+        <h2>No questions available.</h2>
+      </GlassCard>
+    );
   }
 
   const question = questions[currentQ];
+  const progressPercent = ((currentQ + 1) / questions.length) * 100;
 
   return (
-    <div className="page-container">
-      <div className="card">
-        <h2>
-          {appState.selectedSubject} → {appState.selectedTopic}
-        </h2>
-
-        <h3>
-          Question {currentQ + 1} / {questions.length}
-        </h3>
-
-        <h3>{question.q}</h3>
-
-        {question.options.map((opt) => (
-          <button
-            key={opt}
-            className="option-btn"
-            onClick={() => setSelected(opt)}
-          >
-            {opt}
-          </button>
-        ))}
-
-        <button
-          className="option-btn"
-          onClick={() => setHintsUsed(hintsUsed + 1)}
-        >
-          Show Hint 💡 (Used: {hintsUsed})
-        </button>
-
-        <button className="primary-btn" onClick={submitAnswer}>
-          {currentQ === questions.length - 1
-            ? "Finish Quiz"
-            : "Next Question"}
-        </button>
+    <div className="quiz-container">
+      <div className="quiz-header">
+        <h2>{appState.selectedSubject}</h2>
+        <p>{appState.selectedTopic}</p>
       </div>
+
+      <GlassCard className="quiz-panel">
+        <div className="quiz-progress">
+          <div className="progress-meta">
+            <span>Question {currentQ + 1} of {questions.length}</span>
+            <span>{Math.round(progressPercent)}%</span>
+          </div>
+          <ProgressBar progress={progressPercent} />
+        </div>
+
+        <div className="quiz-question">
+          <h3>{question.q}</h3>
+        </div>
+
+        <div className="quiz-options">
+          {question.options.map((opt) => (
+            <button
+              key={opt}
+              className={`quiz-option ${selected === opt ? 'selected' : ''}`}
+              onClick={() => setSelected(opt)}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+
+        <div className="quiz-actions">
+          <button
+            className="hint-chip"
+            onClick={() => setHintsUsed(hintsUsed + 1)}
+          >
+            💡 Hint ({hintsUsed})
+          </button>
+
+          <GradientButton
+            variant="primary"
+            onClick={submitAnswer}
+            disabled={selected === null}
+          >
+            {currentQ === questions.length - 1
+              ? "Finish Quiz"
+              : "Next Question"}
+          </GradientButton>
+        </div>
+      </GlassCard>
     </div>
   );
 }
