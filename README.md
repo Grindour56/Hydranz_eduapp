@@ -1,5 +1,5 @@
 
-📘## EdgeLearn
+## 📘 EdgeLearn
 
 Privacy-Preserving Edge-Based Adaptive Learning System
 
