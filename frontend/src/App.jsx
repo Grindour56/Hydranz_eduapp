@@ -1,16 +1,12 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Quiz from "./pages/Quiz";
-import Module from "./pages/Module";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <BrowserRouter>
+      <Navbar/>
       <Routes>
-        <Route path="/" element={<Quiz />} />
-        <Route path="/module" element={<Module />} />
+        ...
       </Routes>
     </BrowserRouter>
   );
 }
-
-export default App;
