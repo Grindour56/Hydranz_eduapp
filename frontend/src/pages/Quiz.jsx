@@ -1,31 +1,42 @@
 import { useState } from "react";
-import { computeProfile } from "../engines/profilingEngine";
+import { generateModule } from "../core/pipeline";
+import { fetchModule } from "../api/api";
+import { addAttempt, studentState } from "../state";
 
 export default function Quiz() {
   const [selected, setSelected] = useState(null);
-  const [history, setHistory] = useState([]);
   const [startTime, setStartTime] = useState(Date.now());
+  const [moduleResult, setModuleResult] = useState(null);
 
   const correctAnswer = 8;
 
-  function submitAnswer() {
+  async function submitAnswer() {
     if (selected === null) return;
 
     let timeTaken = (Date.now() - startTime) / 1000;
-    let isCorrect = selected === correctAnswer ? 1 : 0;
+    let isCorrect = selected === correctAnswer;
 
-    const newRecord = {
-      accuracy: isCorrect,
-      timeTaken: timeTaken
-    };
+    // store attempt in global state
+    addAttempt("math", isCorrect ? 1 : 0, timeTaken);
 
-    setHistory(prev => [...prev, newRecord]);
+    console.log("History:", studentState.history);
+
+    // generate module id using AI pipeline
+    const moduleId = generateModule(studentState.history);
+    console.log("Generated Module ID:", moduleId);
+
+    if (!moduleId) return;
+
+    try {
+      const moduleContent = await fetchModule(moduleId);
+      setModuleResult(moduleContent);
+    } catch (err) {
+      console.log("Backend not ready yet, using mock module.");
+      setModuleResult({ title: "Sample Module", content: "Backend not connected yet." });
+    }
+
     setSelected(null);
     setStartTime(Date.now());
-
-    console.log("Student history:", [...history, newRecord]);
-    let profile = computeProfile([...history, newRecord]);
-    console.log("Student profile:", profile);
   }
 
   return (
@@ -41,8 +52,15 @@ export default function Quiz() {
       <br /><br />
       <button onClick={submitAnswer}>Submit</button>
 
-      <p>Selected Answer: {selected}</p>
-      <p>Total Attempts: {history.length}</p>
+      <p>Selected: {selected}</p>
+      <p>Total Attempts: {studentState.history.length}</p>
+
+      {moduleResult && (
+        <div style={{ marginTop: "30px", padding: "20px", border: "1px solid black" }}>
+          <h2>{moduleResult.title}</h2>
+          <p>{moduleResult.content}</p>
+        </div>
+      )}
     </div>
   );
 }
