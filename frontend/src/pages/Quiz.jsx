@@ -8,6 +8,14 @@ import { useNavigate } from "react-router-dom";
 export default function Quiz() {
   const navigate = useNavigate();
 
+  // guard: ensure we have subject/topic selected
+  if (!appState.selectedSubject) {
+    return <Navigate to="/subjects" replace />;
+  }
+  if (!appState.selectedTopic) {
+    return <Navigate to="/topics" replace />;
+  }
+
   // 🔥 Load questions dynamically
   const questions =
     questionBank?.[appState.selectedSubject]?.[appState.selectedTopic] || [];
@@ -49,12 +57,19 @@ export default function Quiz() {
     }
   }
 
-  // safety if topic not selected
+  // safety if topic not selected or no questions
   if (questions.length === 0) {
     return (
       <div className="app-container">
         <div className="quiz-card">
-          <h2>No questions found for this topic</h2>
+          <h2>
+            {appState.selectedSubject && appState.selectedTopic
+              ? "No questions found for this topic"
+              : "Please select a subject and topic first"}
+          </h2>
+          <button className="next-btn" onClick={() => navigate("/subjects")}>
+            Choose subject
+          </button>
         </div>
       </div>
     );
