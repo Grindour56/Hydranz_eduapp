@@ -3,7 +3,7 @@
 
 Privacy-Preserving Edge-Based Adaptive Learning System
 
-🚀 #Overview
+#🚀 Overview
 
 EdgeLearn is a web-based adaptive learning platform designed to preserve student privacy while operating under limited bandwidth constraints.
 
@@ -19,7 +19,7 @@ This ensures:
 
 🛡 Reduced privacy risk even if central server is compromised
 
-🏗# Architecture
+#🏗 Architecture
 1️⃣ Edge Layer (Client – Browser)
 
 Runs entirely in the user's browser.
@@ -40,7 +40,7 @@ Send encrypted request via custom protocol
 
 No behavioral logs or learning history are transmitted.
 
-2️⃣ Central Server (Backend API)
+#2️⃣ Central Server (Backend API)
 
 Responsibilities:
 
@@ -60,7 +60,7 @@ Does NOT receive raw performance data
 
 Only processes encrypted content identifiers
 
-🔄 System Flow
+#🔄 System Flow
 
 User completes a quiz.
 
@@ -92,7 +92,7 @@ Backend decrypts module_id.
 
 Server returns module content.
 
-🔐 # Privacy Model
+#🔐 Privacy Model
 
 EdgeLearn protects user privacy by:
 
@@ -108,7 +108,7 @@ Using HTTPS-secured communication
 
 Even if the central database is compromised, raw learning patterns cannot be reconstructed.
 
-🧠# Personalization Logic
+#🧠 Personalization Logic
 
 Each device generates:
 
@@ -129,7 +129,7 @@ Unique recommendation behavior per user
 
 No centralized profile storage
 
-🛠 # Tech Stack
+#🛠 Tech Stack
 Frontend
 
 HTML / JavaScript (or React)
@@ -150,7 +150,7 @@ SQLite / JSON module storage
 
 cryptography library (AES decryption)
 
-📂 #Project Structure
+#📂 Project Structure
 project/
 │
 ├── frontend/
@@ -164,7 +164,7 @@ project/
 │   └── modules.json
 │
 └── README.md
-⚙ Installation & Running
+#⚙ Installation & Running
 Backend
 cd backend
 pip install fastapi uvicorn cryptography
@@ -182,7 +182,7 @@ frontend/index.html
 Or serve with:
 
 npx serve frontend
-🎯 # Hackathon Focus
+#🎯 Hackathon Focus
 
 This project prioritizes:
 
@@ -204,7 +204,7 @@ Heavy cryptographic research-level solutions
 
 The goal is practical privacy-aware adaptive learning.
 
-🔮# Future Improvements
+#🔮 Future Improvements
 
 Federated learning integration
 
@@ -216,7 +216,7 @@ Dynamic difficulty reinforcement learning
 
 Content caching optimization for ultra-low bandwidth environments
 
-👥 # Team Roles
+#👥 Team Roles
 
 Frontend & Edge AI
 
@@ -226,6 +226,6 @@ Backend & API
 
 Integration & Architecture
 
-📜 License
+#📜 License
 
 MIT License (or choose appropriate license)
