@@ -1,6 +1,9 @@
 import { questionBank } from "../data/questionBank";
 import { appState } from "../state";
 import { useNavigate } from "react-router-dom";
+import Layout from "../components/Layout";
+import Card from "../components/Card";
+import Button from "../components/Button";
 
 export default function Subjects() {
   const navigate = useNavigate();
@@ -12,21 +15,21 @@ export default function Subjects() {
   }
 
   return (
-    <div className="app-container">
-      <div className="quiz-card">
+    <Layout>
+      <Card>
         <h2>Select Subject</h2>
         <div className="grid">
           {subjects.map(sub => (
-            <button
+            <Button
               key={sub}
-              className="option-btn"
+              variant="secondary"
               onClick={() => selectSubject(sub)}
             >
               {sub}
-            </button>
+            </Button>
           ))}
         </div>
-      </div>
-    </div>
+      </Card>
+    </Layout>
   );
 }

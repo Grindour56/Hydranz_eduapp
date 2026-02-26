@@ -1,20 +1,21 @@
 import { useNavigate } from "react-router-dom";
+import Layout from "../components/Layout";
+import Card from "../components/Card";
+import Button from "../components/Button";
 
 export default function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className="app-container">
-      <div className="quiz-card">
+    <Layout>
+      <Card className="home-card">
         <h1 className="title">Hydranz Edu</h1>
         <p className="subtitle">
           Personalized learning. Zero tracking. Built for every student.
         </p>
 
-        <button className="next-btn" onClick={() => navigate("/subjects")}>
-          Start Learning
-        </button>
-      </div>
-    </div>
+        <Button variant="primary" onClick={() => navigate("/subjects")}>Start Learning</Button>
+      </Card>
+    </Layout>
   );
 }

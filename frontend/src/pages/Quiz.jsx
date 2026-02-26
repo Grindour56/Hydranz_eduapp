@@ -3,7 +3,11 @@ import { questionBank } from "../data/questionBank";
 import { appState, addAttempt, studentState } from "../state";
 import { generateModule } from "../core/pipeline";
 import { fetchModule } from "../api/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
+import Layout from "../components/Layout";
+import Card from "../components/Card";
+import Button from "../components/Button";
+import ProgressBar from "../components/ProgressBar";
 
 export default function Quiz() {
   const navigate = useNavigate();
@@ -60,47 +64,52 @@ export default function Quiz() {
   // safety if topic not selected or no questions
   if (questions.length === 0) {
     return (
-      <div className="app-container">
-        <div className="quiz-card">
+      <Layout>
+        <Card>
           <h2>
             {appState.selectedSubject && appState.selectedTopic
               ? "No questions found for this topic"
               : "Please select a subject and topic first"}
           </h2>
-          <button className="next-btn" onClick={() => navigate("/subjects")}>
-            Choose subject
-          </button>
-        </div>
-      </div>
+          <Button variant="primary" onClick={() => navigate("/subjects")}>Choose subject</Button>
+        </Card>
+      </Layout>
     );
   }
 
   const question = questions[currentQ];
 
 return (
-  <div className="app-container">
-    <div className="quiz-card">
-
+  <Layout>
+    <Card className="quiz-card">
       <h2>{appState.selectedSubject}</h2>
       <p className="subtitle">{appState.selectedTopic}</p>
-      <h3>Question {currentQ + 1} / {questions.length}</h3>
-      <h3>{question.q}</h3>
 
-      {question.options.map(opt => (
-        <button
-          key={opt}
-          className="option-btn"
-          onClick={() => setSelected(opt)}
-        >
-          {opt}
-        </button>
-      ))}
+      <ProgressBar progress={((currentQ + 1) / questions.length) * 100} />
+      <h3 className="mt-2">Question {currentQ + 1} / {questions.length}</h3>
+      <h3 className="mt-1">{question.q}</h3>
 
-      <button className="next-btn" onClick={submitAnswer}>
+      <div className="grid mt-2">
+        {question.options.map(opt => (
+          <Button
+            key={opt}
+            variant={selected === opt ? 'primary' : 'secondary'}
+            onClick={() => setSelected(opt)}
+          >
+            {opt}
+          </Button>
+        ))}
+      </div>
+
+      <Button
+        variant="primary"
+        className="mt-3"
+        onClick={submitAnswer}
+        disabled={selected === null}
+      >
         {currentQ === questions.length - 1 ? "Finish Quiz" : "Next"}
-      </button>
-
-    </div>
-  </div>
+      </Button>
+    </Card>
+  </Layout>
 );
 }

@@ -1,10 +1,64 @@
+/* VARIABLES AND GLOBAL RESET */
+:root {
+  --primary: #4f46e5;
+  --secondary: #f1f5ff;
+  --accent: #ffb700;
+  --bg: linear-gradient(135deg,#eef2ff,#fdfbff);
+  --text: #111827;
+  --radius: 12px;
+  --spacing: 16px;
+}
+
 /* RESET */
 body {
   margin: 0;
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
-  background: linear-gradient(135deg,#eef2ff,#fdfbff);
+  background: var(--bg);
+  min-height: 100vh;
+  color: var(--text);
+}
+
+/* layout container */
+.layout {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
 }
+
+.page-container {
+  flex: 1;
+  padding: var(--spacing);
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+/* navbar */
+.navbar {
+  background: var(--primary);
+  color: white;
+  padding: calc(var(--spacing)/2) var(--spacing);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.navbar-links a {
+  color: white;
+  margin-left: var(--spacing);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.navbar-links a.active,
+.navbar-links a:hover {
+  text-decoration: underline;
+}
+
 
 /* CENTER APP */
 .app-container {
@@ -78,6 +132,14 @@ h3 { color:#374151; }
   grid-template-columns: 1fr 1fr;
   gap:12px;
 }
+
+/* spacing utilities */
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mt-3 { margin-top: 24px; }
+.mb-1 { margin-bottom: 8px; }
+.mb-2 { margin-bottom: 16px; }
+.mb-3 { margin-bottom: 24px; }
 
 /* SMALL TEXT */
 .subtitle {

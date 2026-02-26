@@ -1,4 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import Layout from "../components/Layout";
+import Card from "../components/Card";
+import Button from "../components/Button";
 
 export default function Module() {
   const location = useLocation();
@@ -6,15 +9,15 @@ export default function Module() {
   const module = location.state;
 
   return (
-    <div className="app-container">
-      <div className="quiz-card">
-        <h1 className="title">{module?.title}</h1>
-        <p className="subtitle">{module?.content}</p>
+    <Layout>
+      <Card>
+        <h1 className="title">{module?.title || "Module"}</h1>
+        <p className="subtitle">{module?.content || "(no content)"}</p>
 
-        <button className="next-btn" onClick={() => navigate("/")}>
+        <Button variant="primary" onClick={() => navigate("/") }>
           Learn Another Topic
-        </button>
-      </div>
-    </div>
+        </Button>
+      </Card>
+    </Layout>
   );
 }
