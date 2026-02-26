@@ -1,18 +1,18 @@
-// simple authentication utility using localStorage
+// simple authentication utility using sessionStorage (clears when browser/tab closed)
 const STORAGE_KEY = 'hydranz_user';
 
 export function loginUser(email) {
   const user = { email, loggedInAt: Date.now() };
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+  sessionStorage.setItem(STORAGE_KEY, JSON.stringify(user));
   return user;
 }
 
 export function logoutUser() {
-  localStorage.removeItem(STORAGE_KEY);
+  sessionStorage.removeItem(STORAGE_KEY);
 }
 
 export function getCurrentUser() {
-  const val = localStorage.getItem(STORAGE_KEY);
+  const val = sessionStorage.getItem(STORAGE_KEY);
   return val ? JSON.parse(val) : null;
 }
 
