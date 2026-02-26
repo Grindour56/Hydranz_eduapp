@@ -142,6 +142,10 @@ body {
   color: white;
 }
 
+.glass-clickable {
+  cursor: pointer;
+}
+
 /* ===== GRADIENT BUTTON ===== */
 
 .gradient-btn {
@@ -618,6 +622,48 @@ h3 { color:#374151; }
   display: flex;
   gap: 12px;
   margin-top: 32px;
+}
+
+/* ===== AUTH PAGES ===== */
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  padding: 24px;
+}
+
+.auth-card {
+  max-width: 360px;
+  width: 100%;
+  padding: 32px;
+  text-align: center;
+}
+
+.auth-card h2 {
+  margin-bottom: 24px;
+  color: white;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+.auth-input::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+
+.auth-footer {
+  margin-top: 16px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
 }
 
 /* ===== DASHBOARD PAGE ===== */

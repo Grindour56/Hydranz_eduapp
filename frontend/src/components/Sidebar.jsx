@@ -1,15 +1,21 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { isAuthenticated, logoutUser } from '../auth';
 
 export default function Sidebar() {
   const location = useLocation();
-  
+  const navigate = useNavigate();
+
+  const auth = isAuthenticated();
   const navItems = [
     { to: '/', label: 'Home', icon: '🏠' },
-    { to: '/subjects', label: 'Learn', icon: '📚' },
-    { to: '/dashboard', label: 'Dashboard', icon: '📊' },
-    { to: '/profile', label: 'Profile', icon: '👤' }
   ];
+  if (auth) {
+    navItems.push({ to: '/dashboard', label: 'Dashboard', icon: '📊' });
+    navItems.push({ to: '/subjects', label: 'Learn', icon: '📚' });
+  } else {
+    navItems.push({ to: '/login', label: 'Login', icon: '🔐' });
+  }
 
   return (
     <aside className="sidebar">
@@ -32,6 +38,18 @@ export default function Sidebar() {
       </nav>
 
       <div className="sidebar-footer">
+        {auth && (
+          <button
+            className="sidebar-link"
+            onClick={() => {
+              logoutUser();
+              navigate('/');
+            }}
+            style={{ background: 'none', border: 'none', padding: 0, color: 'rgba(255,255,255,0.7)', cursor: 'pointer' }}
+          >
+            <span className="sidebar-icon">🚪</span> Logout
+          </button>
+        )}
         <p className="sidebar-footer-text">v1.0 Hackathon</p>
       </div>
     </aside>
