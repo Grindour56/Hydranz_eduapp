@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f6fb;
+}
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Card UI */
+.quiz-card {
+  background: white;
+  padding: 40px;
+  border-radius: 14px;
+  width: 420px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.title {
+  color: #4a4ae6;
+  text-align: center;
+}
+
+/* Buttons */
+.option-btn {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 8px;
+  background: #eef1ff;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.option-btn:hover {
+  background: #dfe3ff;
+}
+
+.next-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 8px;
+  background: #4a4ae6;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
