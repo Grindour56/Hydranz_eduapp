@@ -12,45 +12,52 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { UserProvider } from './context/UserContext';
+import UserHeader from './components/UserHeader';
 
 function App() {
   return (
-    <BrowserRouter>
-      <GlassLayout>
-        <Sidebar />
-        <div className="glass-page">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+    <UserProvider>
+      <BrowserRouter>  {/* Move BrowserRouter here, wrapping everything */}
+        <GlassLayout>
+          <Sidebar />
+          <div className="glass-page" style={{ position: 'relative' }}>
+            <UserHeader />
+            <div style={{ marginTop: '60px' }}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
 
-            {/* protected routes */}
-            <Route
-              path="/dashboard"
-              element={<ProtectedRoute><Dashboard /></ProtectedRoute>}
-            />
-            <Route
-              path="/subjects"
-              element={<ProtectedRoute><Subjects /></ProtectedRoute>}
-            />
-            <Route
-              path="/topics"
-              element={<ProtectedRoute><Topics /></ProtectedRoute>}
-            />
-            <Route
-              path="/quiz"
-              element={<ProtectedRoute><Quiz /></ProtectedRoute>}
-            />
-            <Route
-              path="/module"
-              element={<ProtectedRoute><Module /></ProtectedRoute>}
-            />
+                {/* protected routes */}
+                <Route
+                  path="/dashboard"
+                  element={<ProtectedRoute><Dashboard /></ProtectedRoute>}
+                />
+                <Route
+                  path="/subjects"
+                  element={<ProtectedRoute><Subjects /></ProtectedRoute>}
+                />
+                <Route
+                  path="/topics"
+                  element={<ProtectedRoute><Topics /></ProtectedRoute>}
+                />
+                <Route
+                  path="/quiz"
+                  element={<ProtectedRoute><Quiz /></ProtectedRoute>}
+                />
+                <Route
+                  path="/module"
+                  element={<ProtectedRoute><Module /></ProtectedRoute>}
+                />
 
-            <Route path="*" element={<Home />} />
-          </Routes>
-        </div>
-      </GlassLayout>
-    </BrowserRouter>
+                <Route path="*" element={<Home />} />
+              </Routes>
+            </div>
+          </div>
+        </GlassLayout>
+      </BrowserRouter>
+    </UserProvider>
   );
 }
 
